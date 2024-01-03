@@ -28,7 +28,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Build pd.exe
-        run: make -f Makefile.port -j
+        run: make -f Makefile -j
       - name: Prepare artifact for packaging
         run: |
           mkdir -p bin/data
