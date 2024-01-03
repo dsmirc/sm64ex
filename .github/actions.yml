@@ -2,9 +2,9 @@ name: Build sm64ex
 
 on:
   push:
-    branches: [ master ]
+    branches: [ nightly ]
   pull_request:
-    branches: [ master ]
+    branches: [ nightly ]
 
 jobs:
   build:
