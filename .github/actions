@@ -1,0 +1,27 @@
+name: Build sm64ex
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libaudiofile-dev libglew-dev libglu1-mesa-dev libpng-dev libsdl2-dev libusb-1.0-0-dev python3-dev zlib1g-dev
+    - name: Build sm64ex
+      run: |
+        cd sm64ex
+        make -j$(nproc)
