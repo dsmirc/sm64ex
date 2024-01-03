@@ -13,15 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
+    - name: Set up MSYS2
       run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential libaudiofile-dev libglew-dev libglu1-mesa-dev libpng-dev libsdl2-dev libusb-1.0-0-dev python3-dev zlib1g-dev
+        pacman -Syu --noconfirm
+        pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-python3 mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_ttf
     - name: Build sm64ex
       run: |
-        cd sm64ex
-        make -j$(nproc)
+        make -j$(nproc) EXTERNAL_DATA=1
