@@ -8,16 +8,18 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
-    steps:
-- name: Set up MinGW
-    uses: egor-tensin/setup-mingw@v2
-  with:
-    platform: x64
 
-- name: Setup MSYS2
-    uses: msys2/setup-msys2@v2.21.1
+    runs-on: windows-latest
+ 
+    steps:
+    - name: Set up MinGW
+      uses: egor-tensin/setup-mingw@v2
+      with:
+        platform: x64
+
+    - name: Setup MSYS2
+      uses: msys2/setup-msys2@v2.21.1
             
-- name: Build sm64ex
-   run: |
-    make -j$(nproc) WINDOWS_BUILD=1
+    - name: Build sm64ex
+      run: |
+        make -j$(nproc) WINDOWS_BUILD=1
