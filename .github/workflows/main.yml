@@ -1,37 +1,31 @@
-name: Build
+name: Build sm64ex for Windows
 
 on:
   push:
     branches: [ nightly ]
   pull_request:
     branches: [ nightly ]
-  workflow_dispatch:
 
 jobs:
-  build-i686-windows:
+  build:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
+
     steps:
-      - name: Install MSYS2
-        uses: msys2/setup-msys2@v2
+    - uses: actions/checkout@v2
+
+    - name: Set up MSYS2
+      run: |
+        pacman -Syuu --noconfirm
+        pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-python3 mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_ttf mingw-w64-x86_64-mpg123 mingw-w64-x86_64-libpng mingw-w64-x86_64-zlib mingw-w64-x86_64-openssl mingw-w64-x86_64-cmake
+        export PATH=$PATH:/mingw64/bin
+
+    - name: Build sm64ex
+      run: |
+        make -C build/us_pc -j$(nproc)
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
         with:
-          msystem: MINGW32
-          update: true
-          install: >-
-            git
-            make
-            mingw-w64-i686-toolchain
-            mingw-w64-i686-SDL2
-            mingw-w64-i686-zlib
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Build pd.exe
-        run: make -f Makefile -j
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: pd-i686-windows
+          name: sm64ex
           path: sm64ex/
           retention-days: 0
