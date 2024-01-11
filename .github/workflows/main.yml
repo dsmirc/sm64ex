@@ -10,7 +10,11 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Install MSYS2
+      run: |
+        choco install msys2 -y
+        refreshenv
+        ridk install 1 3 4 5 6
     - name: Set up MSYS2
       run: |
         pacman -Syu --noconfirm
