@@ -18,9 +18,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y mingw-w64
         sudo apt-get install libsdl2-dev
+        sudo apt-get install build-essential git python3 libglew-dev
     - name: Build sm64ex
       run: |
-        make -j$(nproc) WINDOWS_BUILD=1
+        make -j$(nproc) WINDOWS_BUILD=1 EXTERNAL_DATA=1 EXT_OPTIONS_MENU=1 EXT_OPTIONS_MENU=1
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.3
