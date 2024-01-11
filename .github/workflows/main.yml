@@ -10,20 +10,14 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - name: Install MSYS2
-      run: |
-        choco install msys2 -y
-        choco install mingw -y
-        refreshenv
-        ridk install 1 3 4 5 6
-    - name: Set up MSYS2
-      run: |
-        $env:MSYS2_PATH_TYPE = "inherit"
-        $env:MSYS2_ARG_CONV_EXCL = "*"
-        $env:MSYS_NO_PATHCONV = 1
-        $env:MSYS2_FC_CACHE_SKIP = 1
-        $env:MSYS2_FC_CACHE_SIZE = 1
-        $env:MSYS2_FC_CACHE_TIMEOUT = 1
-    - name: Build sm64ex
-      run: |
-        make -j$(nproc) WINDOWS_BUILD=1
+- name: Set up MinGW
+    uses: egor-tensin/setup-mingw@v2
+  with:
+    platform: x64
+
+- name: Setup MSYS2
+    uses: msys2/setup-msys2@v2.21.1
+            
+- name: Build sm64ex
+   run: |
+    make -j$(nproc) WINDOWS_BUILD=1
