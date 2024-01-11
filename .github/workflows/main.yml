@@ -23,9 +23,4 @@ jobs:
       run: |
         make -C build/us_pc -j$(nproc)
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-        with:
-          name: sm64ex
-          path: sm64ex/
-          retention-days: 0
+
