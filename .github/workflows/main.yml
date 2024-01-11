@@ -23,8 +23,6 @@ jobs:
         $env:MSYS2_FC_CACHE_SKIP = 1
         $env:MSYS2_FC_CACHE_SIZE = 1
         $env:MSYS2_FC_CACHE_TIMEOUT = 1
-        pacman -Syu --noconfirm
-        pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-python3 mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_ttf
     - name: Build sm64ex
       run: |
         make -j$(nproc) WINDOWS_BUILD=1
