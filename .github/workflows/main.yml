@@ -2,9 +2,9 @@ name: Build sm64ex for Windows
 
 on:
   push:
-    branches: [ nightly ]
+    branches: [ main ]
   pull_request:
-    branches: [ nightly ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -17,10 +17,8 @@ jobs:
       run: |
         pacman -Syuu --noconfirm
         pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-python3 mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_ttf mingw-w64-x86_64-mpg123 mingw-w64-x86_64-libpng mingw-w64-x86_64-zlib mingw-w64-x86_64-openssl mingw-w64-x86_64-cmake
-        export PATH=$PATH:/mingw64/bin
+        export PATH=$PATH:/mingw64/bin/
 
     - name: Build sm64ex
       run: |
         make -C build/us_pc -j$(nproc)
-
-
