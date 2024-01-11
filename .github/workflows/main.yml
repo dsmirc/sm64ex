@@ -13,8 +13,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up MSYS2
       run: |
-        pacman -Syuu --noconfirm
+        pacman -Syu --noconfirm
         pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-python3 mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_ttf
     - name: Build sm64ex
       run: |
-        make -C build/us_pc -j$(nproc)
+        make -j$(nproc) WINDOWS_BUILD=1
